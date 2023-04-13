@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Nor2"
+run/main_scene="res://sprites/test-world.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -48,6 +49,11 @@ texture={
 "roughness/mode": 0,
 "roughness/src_normal": ""
 }
+
+[physics]
+
+2d/default_gravity=0.0
+2d/default_linear_damp=0.0
 
 [rendering]
 
