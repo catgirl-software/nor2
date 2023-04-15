@@ -1,24 +1,16 @@
 [gd_scene load_steps=6 format=3 uid="uid://4lqobwwcougl"]
 
-[ext_resource type="Script" path="res://sprites/disc.gd" id="1_o573v"]
+[ext_resource type="PackedScene" uid="uid://7038nq8o0827" path="res://disc.tscn" id="1_tpyl0"]
 [ext_resource type="TileSet" uid="uid://bj7wm5ul8muam" path="res://sprites/wall_tileset.tres" id="1_v568b"]
 [ext_resource type="Texture2D" uid="uid://basxdq4nugoya" path="res://icon.svg" id="2_13p7i"]
 [ext_resource type="PackedScene" uid="uid://wfu0ftpdkm2u" path="res://player.tscn" id="4_e5pao"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7c36m"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ax235"]
 
 [node name="Node2D" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(86, 175)
-script = ExtResource("1_o573v")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("CircleShape2D_7c36m")
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("2_13p7i")
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_tpyl0")]
+position = Vector2(83, 140)
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(0, 233)

@@ -2,10 +2,16 @@ extends CharacterBody2D
 class_name Disc
 
 const ACCELERATION : float = 2
+const STARTING_SPEED : int = 20
 const MAX_VEL : int = 100
 const MAX_VEL_SQUARED : int = MAX_VEL * MAX_VEL
 
 var vel: Vector2
+var team: int
+
+func _init(player_team: int, direction: Vector2):
+	team = player_team
+	vel = direction.normalized() * STARTING_SPEED
 
 func _ready():
 	self.vel = Vector2(10, 10)
