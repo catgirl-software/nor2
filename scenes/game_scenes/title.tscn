@@ -7,7 +7,7 @@ script/source = "extends Control
 @onready var level = preload(\"res://scenes/game_scenes/map1.tscn\")
 
 func start_game():
-	get_tree().change_scene_to_packed(level)
+	RoundHandler.start()
 "
 
 [node name="title" type="Control"]

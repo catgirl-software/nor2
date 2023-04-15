@@ -20,6 +20,8 @@ config/icon="res://icon.svg"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 DiscManager="*res://sprites/disc_manager.gd"
 Events="*res://sprites/Events.gd"
+ScoreTracker="*res://autoloads/score_tracker.gd"
+RoundHandler="*res://autoloads/round_handler.gd"
 
 [display]
 
