@@ -1,4 +1,5 @@
 extends TileMap
+class_name ColourableTiles
 
 func on_ball_collide(ball: Disc, collision: KinematicCollision2D) -> bool:
 	# get tile that was hit
