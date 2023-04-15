@@ -10,6 +10,7 @@ radius = 9.0
 radius = 4.0
 
 [node name="CharacterBody2D2" type="CharacterBody2D"]
+motion_mode = 1
 script = ExtResource("1_dkxln")
 
 [node name="head" type="CollisionShape2D" parent="."]
@@ -20,4 +21,4 @@ shape = SubResource("CapsuleShape2D_ywinu")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_btav7")
-vframes = 4
+vframes = 5

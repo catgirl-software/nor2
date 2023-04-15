@@ -11,13 +11,9 @@ var team: int = 1
 
 func init(player_team: int, direction: Vector2, initial_position: Vector2):
 	team = player_team
+	$disc_sprite.frame = team
 	vel = direction.normalized() * STARTING_SPEED
 	position = initial_position
-
-
-func _ready():
-	pass
-	#self.vel = Vector2(10, 10)
 
 func _physics_process(delta):
 	var movement = self.vel

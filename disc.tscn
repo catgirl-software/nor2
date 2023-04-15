@@ -13,6 +13,6 @@ script = ExtResource("1_608fo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_7c36m")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="disc_sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_ppko4")
-vframes = 4
+vframes = 5

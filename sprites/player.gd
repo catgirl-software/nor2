@@ -7,6 +7,10 @@ enum InputType {
 }
 
 @export var input_type: InputType
+@export_range(1,4) var team: int = 1
+
+func _ready():
+	$Sprite2D.frame = team
 
 var has_disk: bool = true
 
