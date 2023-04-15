@@ -50,6 +50,13 @@ texture={
 "roughness/src_normal": ""
 }
 
+[input]
+
+controller_1_aim={
+"deadzone": 0.5,
+"events": []
+}
+
 [physics]
 
 2d/default_gravity=0.0
