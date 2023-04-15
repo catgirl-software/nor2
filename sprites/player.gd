@@ -9,71 +9,16 @@ enum InputType {
 @export var input_type: InputType
 @export_range(1,4) var team: int = 1
 
-var has_disk: bool = true
+var has_disc: bool = true
+const BACKSWING_LENGTH: float = 1
+enum State {
+	Ready,
+	Throwing,
+	Catching,
+	CatchingBackswing,
+}
 
-const CATCHING_LENGTH = 1
-const BACKSWING_LENGTH = 1
-
-class State extends Node:
-	enum S {
-		Normal,
-		Catching,
-		Backswing,
-	}
-	var state: S = S.Normal
-	var has_disc: bool = true
-
-	enum ThrowResult {
-		Thrown,
-		Catching,
-		Failed,
-	}
-
-	func try_throw() -> ThrowResult:
-		match state:
-			S.Normal:
-				if has_disc:
-					has_disc = false
-					return ThrowResult.Thrown
-				else:
-					state = S.Catching
-					start_catch_timer()
-					return ThrowResult.Catching
-			_:
-				print("can't throw! in state ", state)
-				return ThrowResult.Failed
-
-	func start_catch_timer():
-		await get_tree().create_timer(CATCHING_LENGTH).timeout
-		if state == S.Catching:
-			state = S.Backswing
-			print("backswing!")
-			start_backswing_timer()
-		else:
-			print("weird state! catching timer expired but we're in ", state)
-
-	func start_backswing_timer():
-		await get_tree().create_timer(BACKSWING_LENGTH).timeout
-		if state == S.Backswing:
-			state = S.Normal
-			print("normal!")
-		else:
-			print("weird state! backswing timer expired but we're in ", state)
-
-	enum CollideResult {
-		Caught,
-		Dead,
-	}
-	func try_collide() -> CollideResult:
-		match state:
-			S.Catching:
-				state = S.Normal
-				has_disc = true
-				return CollideResult.Caught
-			_:
-				return CollideResult.Dead
-
-var state: State
+var state: State = State.Ready
 
 func get_aim_direction():
 	match input_type:
@@ -111,14 +56,7 @@ func get_throwing():
 			print("BAD INPUT TYPE: ", self.input_type)
 			return false
 
-func throw():
-	print("throw the thing!")
-
 func _ready():
-	var s = State.new()
-	add_child(s)
-	state = s
-	
 	$Sprite2D.frame = team
 	$Arm.frame = team
 	$Arm/disc.frame = team
@@ -131,20 +69,45 @@ func _physics_process(delta):
 	self.look_at(self.position + aim_direction)
 	self.move_and_collide(move_direction.normalized() * 50 * delta)
 
-	if throwing:
-		match state.try_throw():
-			State.ThrowResult.Thrown:
-				DiscManager.new_disc(1, aim_direction, self.position + aim_direction.normalized() * 20)
-			_:
-				print("didn't throw")
+	if throwing and state == State.Ready:
+		if has_disc:
+			print("throwing")
+			try_throw(aim_direction)
+		else:
+			print("catching")
+			try_catch()
 
+func try_throw(aim_direction: Vector2):
+	DiscManager.new_disc(team, aim_direction, position + aim_direction.normalized() * 20)
+	state = State.Throwing
+	has_disc = false
+	$Arm/disc.visible = true
+	$AnimationPlayer.play("throw")
+	await $AnimationPlayer.animation_finished
+	$AnimationPlayer.stop()
+	$Arm/disc.visible = false
+	print("stopped")
+	state = State.Ready
+
+func try_catch():
+	state = State.Catching
+	$AnimationPlayer.play("throw")
+	print("catching, ", $Arm/disc.visible)
+	await $AnimationPlayer.animation_finished
+	$AnimationPlayer.stop()
+	if state == State.Catching:
+		state = State.CatchingBackswing
+		await get_tree().create_timer(BACKSWING_LENGTH).timeout
+		state = State.Ready
+
+func die():
+	print("dead")
+	queue_free()
+	
 func on_ball_collide(disc: Node2D, _col: KinematicCollision2D) -> bool:
-	match state.try_collide():
-		State.CollideResult.Caught:
-			print("caught disc!")
-			return true
-		State.CollideResult.Dead:
-			return false
-		_:
-			print("bad collide state!")
-			return false
+	if state == State.Catching:
+		state = State.Ready
+		has_disc = true
+		return true
+	die()
+	return false
