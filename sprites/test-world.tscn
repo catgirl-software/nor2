@@ -1,9 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://4lqobwwcougl"]
+[gd_scene load_steps=9 format=3 uid="uid://4lqobwwcougl"]
 
 [ext_resource type="PackedScene" uid="uid://bdbue2sy4yj4r" path="res://disc.tscn" id="1_tpyl0"]
 [ext_resource type="TileSet" uid="uid://bj7wm5ul8muam" path="res://sprites/wall_tileset.tres" id="1_v568b"]
+[ext_resource type="Shader" path="res://lum.gdshader" id="1_y7ha4"]
+[ext_resource type="Script" path="res://sprites/Lum.gd" id="2_2obbh"]
 [ext_resource type="Script" path="res://sprites/ColourableTiles.gd" id="3_pekx0"]
 [ext_resource type="PackedScene" uid="uid://wfu0ftpdkm2u" path="res://player.tscn" id="4_e5pao"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_85g1q"]
+shader = ExtResource("1_y7ha4")
+shader_parameter/amount = 0.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_n8efo"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -25,3 +33,12 @@ position = Vector2(455, 147)
 
 [node name="p3" parent="." instance=ExtResource("4_e5pao")]
 position = Vector2(302, 21)
+
+[node name="CanvasLayer" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_85g1q")
+offset_left = -52.0
+offset_top = -69.0
+offset_right = 1670.0
+offset_bottom = 1030.0
+texture = SubResource("CanvasTexture_n8efo")
+script = ExtResource("2_2obbh")

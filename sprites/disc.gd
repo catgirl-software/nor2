@@ -14,6 +14,7 @@ func init(player_team: int, direction: Vector2, initial_position: Vector2):
 	$disc_sprite.frame = team
 	vel = direction.normalized() * STARTING_SPEED
 	position = initial_position
+	Events.ball_speed_changed.emit(vel.length())
 
 func _physics_process(delta):
 	var movement = self.vel
@@ -27,10 +28,12 @@ func _physics_process(delta):
 				var destroy = collider.on_ball_collide(self, col)
 				if destroy:
 					self.queue_free()
+					Events.ball_speed_changed.emit(-vel.length())
 					return
-
-			self.vel = self.vel.bounce(col.get_normal()) * ACCELERATION
-			self.vel = self.vel.normalized() * min(MAX_VEL, self.vel.length())
+			var new_vel = self.vel.bounce(col.get_normal()) * ACCELERATION
+			new_vel = new_vel.normalized() * min(MAX_VEL, new_vel.length())
+			Events.ball_speed_changed.emit((new_vel - vel).length())
+			self.vel = new_vel
 			movement = col.get_remainder().bounce(col.get_normal())
 		else:
 			break
