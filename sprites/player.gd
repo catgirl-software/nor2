@@ -9,9 +9,6 @@ enum InputType {
 @export var input_type: InputType
 @export_range(1,4) var team: int = 1
 
-func _ready():
-	$Sprite2D.frame = team
-
 var has_disk: bool = true
 
 const CATCHING_LENGTH = 1
@@ -114,10 +111,17 @@ func get_throwing():
 			print("BAD INPUT TYPE: ", self.input_type)
 			return false
 
+func throw():
+	print("throw the thing!")
+
 func _ready():
 	var s = State.new()
 	add_child(s)
 	state = s
+	
+	$Sprite2D.frame = team
+	$Arm.frame = team
+	$Arm/disc.frame = team
 
 func _physics_process(delta):
 	var aim_direction = get_aim_direction()
