@@ -1,7 +1,7 @@
 extends TileMap
 class_name ColourableTiles
 
-func on_ball_collide(ball: Disc, collision: KinematicCollision2D) -> bool:
+func on_ball_collide(ball: Node2D, collision: KinematicCollision2D) -> bool:
 	# get tile that was hit
 	var hit_tile = local_to_map(to_local(collision.get_position()))
 	
