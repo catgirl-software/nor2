@@ -6,7 +6,7 @@ script/source = "extends Control
 
 func add_round_number():
 	$RichTextLabel.text += \" \" + str(RoundHandler.get_round_number())
-	
+
 func next_round():
 	RoundHandler.go_to_level()
 "
@@ -62,6 +62,7 @@ scale = Vector2(4, 4)
 text = "ROUND"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "do_the_thing"
 libraries = {
 "": SubResource("AnimationLibrary_majwe")
 }

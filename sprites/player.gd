@@ -9,6 +9,8 @@ enum InputType {
 @export var input_type: InputType
 @export_range(1,4) var team: int = 1
 
+var last_look_direction: Vector2 = Vector2(1, 1)
+
 var has_disc: bool = true
 const BACKSWING_LENGTH: float = 1
 enum State {
@@ -64,21 +66,26 @@ func _ready():
 func _physics_process(delta):
 	var aim_direction = get_aim_direction()
 	var move_direction = get_move_direction()
+	if aim_direction.length():
+		last_look_direction = aim_direction
+	elif move_direction.length():
+		last_look_direction = move_direction
+
 	var throwing = get_throwing()
 
-	self.look_at(self.position + aim_direction)
-	self.move_and_collide(move_direction.normalized() * 50 * delta)
+	self.look_at(self.position + last_look_direction)
+	self.move_and_collide(move_direction.normalized() * 100 * delta)
 
 	if throwing and state == State.Ready:
 		if has_disc:
 			print("throwing")
-			try_throw(aim_direction)
+			try_throw()
 		else:
 			print("catching")
 			try_catch()
 
-func try_throw(aim_direction: Vector2):
-	DiscManager.new_disc(team, aim_direction, position + aim_direction.normalized() * 20)
+func try_throw():
+	DiscManager.new_disc(team, last_look_direction, position + last_look_direction.normalized() * 20)
 	state = State.Throwing
 	has_disc = false
 	$Arm/disc.visible = true
@@ -102,6 +109,7 @@ func try_catch():
 
 func die():
 	print("dead")
+	RoundHandler.go_to_intermission()
 	queue_free()
 	
 func on_ball_collide(disc: Node2D, _col: KinematicCollision2D) -> bool:

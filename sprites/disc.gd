@@ -1,8 +1,8 @@
 extends CharacterBody2D
 class_name Disc
 
-const ACCELERATION : float = 2
-const STARTING_SPEED : int = 20
+const ACCELERATION : float = 1.2
+const STARTING_SPEED : int = 60
 const MAX_VEL : int = 100
 const MAX_VEL_SQUARED : int = MAX_VEL * MAX_VEL
 
@@ -21,8 +21,6 @@ func _physics_process(delta):
 	while true:
 		var col = self.move_and_collide(movement * delta)
 		if col:
-			print("bounce! ", self.vel)
-
 			var collider = col.get_collider()
 			if collider.has_method("on_ball_collide"):
 				var destroy = collider.on_ball_collide(self, col)

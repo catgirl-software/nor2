@@ -14,7 +14,10 @@ func get_round_number():
 
 func go_to_intermission():
 	round += 1
+	for n in DiscManager.get_children():
+		DiscManager.remove_child(n)
+		n.queue_free()
 	get_tree().change_scene_to_packed(intermission)
 
 func go_to_level():
-	get_tree().change_scene_to_packed(intermission)
+	get_tree().change_scene_to_packed(level)
