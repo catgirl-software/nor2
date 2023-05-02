@@ -107,15 +107,17 @@ func try_catch():
 		await get_tree().create_timer(BACKSWING_LENGTH).timeout
 		state = State.Ready
 
-func die():
+func die(killing_team: int):
 	print("dead")
+	if killing_team != team:
+		ScoreTracker.score(killing_team, team)
 	RoundHandler.go_to_intermission()
 	queue_free()
 	
-func on_ball_collide(disc: Node2D, _col: KinematicCollision2D) -> bool:
+func on_ball_collide(disc: Disc, _col: KinematicCollision2D) -> bool:
 	if state == State.Catching:
 		state = State.Ready
 		has_disc = true
 		return true
-	die()
+	die(disc.team)
 	return false

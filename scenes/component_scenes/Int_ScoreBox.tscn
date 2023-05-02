@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://b51cq1qo8npgq"]
+
+[ext_resource type="Script" path="res://scenes/component_scenes/Int_ScoreBox.gd" id="1_4uw5f"]
+[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="1_orw7a"]
+
+[node name="Control" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+script = ExtResource("1_4uw5f")
+scoring_sprite = ExtResource("1_orw7a")
+
+[node name="NameLabel" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+bbcode_enabled = true
+text = "temp"
+fit_content = true

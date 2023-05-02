@@ -16,10 +16,10 @@ script = ExtResource("2_v8a56")
 position = Vector2(240, 135)
 zoom = Vector2(2, 2)
 
-[node name="CharacterBody2D2" parent="." instance=ExtResource("3_l8p3q")]
+[node name="p1" parent="." instance=ExtResource("3_l8p3q")]
 position = Vector2(56, 60)
 
-[node name="CharacterBody2D3" parent="." instance=ExtResource("3_l8p3q")]
+[node name="p2" parent="." instance=ExtResource("3_l8p3q")]
 position = Vector2(414, 205)
 input_type = 1
 team = 2
