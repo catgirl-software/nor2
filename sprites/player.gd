@@ -59,6 +59,8 @@ func get_throwing():
 			return false
 
 func _ready():
+	# oh boy i hope keys() is stable ordered
+	team = ScoreTracker.get_teams()[team - 1]
 	$Sprite2D.frame = team
 	$Arm.frame = team
 	$Arm/disc.frame = team
