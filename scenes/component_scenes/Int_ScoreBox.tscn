@@ -13,7 +13,10 @@ theme_override_constants/separation = 50
 script = ExtResource("1_4uw5f")
 scoring_sprite = ExtResource("1_orw7a")
 
-[node name="NameLabel" type="RichTextLabel" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="CenterContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0

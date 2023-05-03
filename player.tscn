@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://wfu0ftpdkm2u"]
 
 [ext_resource type="Script" path="res://sprites/player.gd" id="1_dkxln"]
-[ext_resource type="Texture2D" uid="uid://3ue7iltvj20h" path="res://sprites/ase/norts.png" id="2_btav7"]
-[ext_resource type="Texture2D" uid="uid://dyvxxxrki1rue" path="res://sprites/ase/arm.png" id="2_jy5ev"]
-[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="3_vpqyh"]
+[ext_resource type="Texture2D" uid="uid://dyvxxxrki1rue" path="res://sprites/ase/arm.png" id="2_77rcf"]
+[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="3_crkmk"]
+[ext_resource type="Texture2D" uid="uid://3ue7iltvj20h" path="res://sprites/ase/norts.png" id="4_gv58l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ax235"]
 radius = 9.0
@@ -71,18 +71,18 @@ shape = SubResource("CapsuleShape2D_ywinu")
 [node name="Arm" type="Sprite2D" parent="."]
 position = Vector2(0, -10)
 rotation = 1.5708
-texture = ExtResource("2_jy5ev")
+texture = ExtResource("2_77rcf")
 offset = Vector2(6, 0)
 vframes = 5
 
 [node name="disc" type="Sprite2D" parent="Arm"]
 show_behind_parent = true
 position = Vector2(12.9997, 0.0418882)
-texture = ExtResource("3_vpqyh")
+texture = ExtResource("3_crkmk")
 vframes = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_btav7")
+texture = ExtResource("4_gv58l")
 vframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

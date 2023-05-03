@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfnwt42vmm3lr"]
+[gd_scene load_steps=9 format=3 uid="uid://bfnwt42vmm3lr"]
 
+[ext_resource type="Shader" path="res://lum.gdshader" id="1_o6ocy"]
 [ext_resource type="TileSet" uid="uid://bj7wm5ul8muam" path="res://sprites/wall_tileset.tres" id="1_ytix1"]
+[ext_resource type="Script" path="res://sprites/Lum.gd" id="2_3o03e"]
 [ext_resource type="Script" path="res://sprites/ColourableTiles.gd" id="2_v8a56"]
 [ext_resource type="PackedScene" uid="uid://wfu0ftpdkm2u" path="res://player.tscn" id="3_l8p3q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_a4pnx"]
+shader = ExtResource("1_o6ocy")
+shader_parameter/amount = null
+
+[sub_resource type="Gradient" id="Gradient_2uk7l"]
+offsets = PackedFloat32Array(0.996997, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_mljo5"]
+gradient = SubResource("Gradient_2uk7l")
 
 [node name="map1" type="Node2D"]
 
@@ -18,8 +30,16 @@ zoom = Vector2(2, 2)
 
 [node name="p1" parent="." instance=ExtResource("3_l8p3q")]
 position = Vector2(56, 60)
+input_type = 1
 
 [node name="p2" parent="." instance=ExtResource("3_l8p3q")]
 position = Vector2(414, 205)
-input_type = 1
+input_type = 2
 team = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_a4pnx")
+offset_right = 505.0
+offset_bottom = 301.0
+texture = SubResource("GradientTexture1D_mljo5")
+script = ExtResource("2_3o03e")

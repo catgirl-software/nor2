@@ -7,4 +7,4 @@ func _ready():
 
 func ball_speed_changed(delta):
 	total_speed += delta
-	self.material.set_shader_parameter("amount", total_speed / 80)
+	self.material.set_shader_parameter("amount", total_speed / 700)

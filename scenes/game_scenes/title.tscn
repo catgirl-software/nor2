@@ -11,7 +11,7 @@ script/source = "extends Control
 func start_game():
 	if $p1.team == $p2.team:
 		return
-	ScoreTracker.initialise([$p1.team, $p2.team], 3)
+	ScoreTracker.initialise([$p1.team, $p2.team], 5)
 	RoundHandler.start()
 "
 

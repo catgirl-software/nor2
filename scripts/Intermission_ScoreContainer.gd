@@ -9,5 +9,5 @@ func _ready():
 	for score_set in scores:
 		var node = scorebox.instantiate()
 		print("Spawning scorebox for player ", score_set, " scores:", scores[score_set])
-		(node as Int_ScoreBox).init("Player " + str(score_set), scores[score_set])
+		(node as Int_ScoreBox).init(get_parent().colour_from_num[score_set], scores[score_set])
 		add_child(node)

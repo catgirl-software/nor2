@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name Disc
 
 const ACCELERATION : float = 1.2
-const STARTING_SPEED : int = 60
-const MAX_VEL : int = 100
+const STARTING_SPEED : int = 100
+const MAX_VEL : int = 400
 const MAX_VEL_SQUARED : int = MAX_VEL * MAX_VEL
 
 var vel: Vector2

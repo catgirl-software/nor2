@@ -4,7 +4,7 @@ class_name Int_ScoreBox
 @export var scoring_sprite : Texture2D
 
 func init(player_name : String, scores : Array):
-	$NameLabel.text = player_name
+	$CenterContainer/NameLabel.text = player_name
 	print("Init scorebox for player ", player_name, " scores:", scores)
 	for score in scores:
 		print("loop!")

@@ -6,11 +6,27 @@
 resource_name = "intermission"
 script/source = "extends Control
 
+var colour_from_num : Dictionary = {
+	1 : \"Green\",
+	2 : \"Orange\",
+	3 : \"Blue\",
+	4 : \"Purple\"
+}
+
+func _ready():
+	if ScoreTracker.winner > 0:
+		$AnimationPlayer.queue_free()
+		$RichTextLabel.text = colour_from_num[ScoreTracker.winner] + \" wins!\"
+		$Restart.visible = true
 func add_round_number():
 	$RichTextLabel.text += \" \" + str(RoundHandler.get_round_number())
 	
 func next_round():
 	RoundHandler.go_to_level()
+
+
+func _on_restart_pressed():
+	get_tree().change_scene_to_file(\"res://scenes/game_scenes/title.tscn\")
 "
 
 [sub_resource type="Animation" id="Animation_kqas1"]
@@ -43,6 +59,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_75p46")
@@ -79,3 +97,15 @@ offset_left = 160.0
 offset_top = 100.0
 offset_right = -160.0
 script = ExtResource("1_cpl26")
+
+[node name="Restart" type="Button" parent="."]
+visible = false
+modulate = Color(4, 4, 4, 1)
+layout_mode = 0
+offset_left = 725.0
+offset_top = 467.0
+offset_right = 941.0
+offset_bottom = 522.0
+text = "Restart"
+
+[connection signal="pressed" from="Restart" to="." method="_on_restart_pressed"]
