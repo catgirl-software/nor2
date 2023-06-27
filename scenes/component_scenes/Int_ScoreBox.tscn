@@ -1,25 +1,44 @@
-[gd_scene load_steps=3 format=3 uid="uid://b51cq1qo8npgq"]
+[gd_scene load_steps=4 format=3 uid="uid://b51cq1qo8npgq"]
 
 [ext_resource type="Script" path="res://scenes/component_scenes/Int_ScoreBox.gd" id="1_4uw5f"]
+[ext_resource type="Theme" uid="uid://dqsdcby6snaey" path="res://PanelTheme.tres" id="1_hdpoa"]
 [ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="1_orw7a"]
 
-[node name="Control" type="HBoxContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="PanelContainer" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 80)
+anchors_preset = -1
+anchor_right = 0.615
+anchor_bottom = 0.134
+offset_bottom = 1.64
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 50
+theme = ExtResource("1_hdpoa")
 script = ExtResource("1_4uw5f")
 scoring_sprite = ExtResource("1_orw7a")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="NameLabel" type="RichTextLabel" parent="CenterContainer"]
+[node name="CenterContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="NameLabel" type="RichTextLabel" parent="HBoxContainer/CenterContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 bbcode_enabled = true
 text = "temp"
 fit_content = true
+
+[node name="KillsLabel" type="RichTextLabel" parent="HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+bbcode_enabled = true
+text = "temp"
+fit_content = true
+
+[node name="ScoreContainer" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://copkkwj4cdcu3"]
+
+[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="1_anapg"]
+
+[sub_resource type="GDScript" id="GDScript_4gvak"]
+resource_name = "ScoreDisc"
+script/source = "extends Control
+
+func init(set_frame : int):
+	$Sprite2D.frame = set_frame
+"
+
+[node name="ScoreDisc" type="Control"]
+layout_mode = 3
+anchor_right = 0.067
+anchor_bottom = 0.119
+offset_right = -0.32
+offset_bottom = -0.260002
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_4gvak")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(32, 32)
+scale = Vector2(4, 4)
+texture = ExtResource("1_anapg")
+vframes = 5
