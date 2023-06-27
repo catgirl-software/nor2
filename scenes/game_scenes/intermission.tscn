@@ -96,6 +96,7 @@ anchor_bottom = 0.5
 offset_left = 160.0
 offset_top = 100.0
 offset_right = -160.0
+theme_override_constants/separation = 8
 script = ExtResource("1_cpl26")
 
 [node name="Restart" type="Button" parent="."]

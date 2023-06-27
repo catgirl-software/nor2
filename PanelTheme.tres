@@ -1,0 +1,54 @@
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dqsdcby6snaey"]
+
+[ext_resource type="Texture2D" uid="uid://dc0py5cml8rfr" path="res://sprites/UItheme/borderGrey.png" id="1_vp6un"]
+[ext_resource type="Texture2D" uid="uid://bc8ml7s7fk543" path="res://sprites/UItheme/borderBlue.png" id="2_v633i"]
+[ext_resource type="Texture2D" uid="uid://cgtrv8jdd303o" path="res://sprites/UItheme/borderPurple.png" id="3_qxeuq"]
+[ext_resource type="Texture2D" uid="uid://cly42q7iva6ek" path="res://sprites/UItheme/borderOrange.png" id="3_rj8sm"]
+[ext_resource type="Texture2D" uid="uid://cpyc6lpkoblna" path="res://sprites/UItheme/borderGreen.png" id="3_ung24"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jr6k3"]
+texture = ExtResource("1_vp6un")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rdv11"]
+texture = ExtResource("2_v633i")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+region_rect = Rect2(0, 0, 16, 16)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fjesf"]
+texture = ExtResource("3_ung24")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qv001"]
+texture = ExtResource("3_rj8sm")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_andmq"]
+texture = ExtResource("3_qxeuq")
+texture_margin_left = 7.0
+texture_margin_top = 7.0
+texture_margin_right = 7.0
+texture_margin_bottom = 7.0
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_jr6k3")
+PanelContainerBlue/base_type = &"PanelContainer"
+PanelContainerBlue/styles/panel = SubResource("StyleBoxTexture_rdv11")
+PanelContainerGreen/base_type = &"PanelContainer"
+PanelContainerGreen/styles/panel = SubResource("StyleBoxTexture_fjesf")
+PanelContainerOrange/base_type = &"PanelContainer"
+PanelContainerOrange/styles/panel = SubResource("StyleBoxTexture_qv001")
+PanelContainerPurple/base_type = &"PanelContainer"
+PanelContainerPurple/styles/panel = SubResource("StyleBoxTexture_andmq")
