@@ -25,7 +25,7 @@ var state: State = State.Ready
 func get_aim_direction():
 	match input_type:
 		InputType.Mouse:
-			return get_viewport().get_mouse_position() - self.position
+			return (get_viewport().get_mouse_position() - self.get_global_transform_with_canvas().origin).normalized()
 		InputType.Controller1:
 			return Input.get_vector("joystick_aim_1_nx", "joystick_aim_1_px", "joystick_aim_1_ny", "joystick_aim_1_py")
 		InputType.Controller2:

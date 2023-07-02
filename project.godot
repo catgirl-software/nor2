@@ -182,4 +182,3 @@ joystick_2_throw={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver="opengl3"
-renderer/rendering_method="gl_compatibility"
