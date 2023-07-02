@@ -14,3 +14,4 @@ func reset():
 func ball_speed_changed(delta):
 	total_speed += delta
 	self.material.set_shader_parameter("amount", total_speed / 700)
+	self.material.set_shader_parameter("amount", 1.50)

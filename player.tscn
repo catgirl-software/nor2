@@ -89,3 +89,7 @@ vframes = 5
 libraries = {
 "": SubResource("AnimationLibrary_05jai")
 }
+
+[node name="aim_trail" type="Line2D" parent="."]
+visible = false
+width = 2.0

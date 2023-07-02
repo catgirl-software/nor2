@@ -46,14 +46,26 @@ func get_move_direction():
 			print("BAD INPUT TYPE: ", self.input_type)
 			return Vector2(0, 0)
 
+func get_aiming():
+	match input_type:
+		InputType.Mouse:
+			return Input.is_action_pressed("keyboard_throw")
+		InputType.Controller1:
+			return Input.is_action_pressed("joystick_1_throw")
+		InputType.Controller2:
+			return Input.is_action_pressed("joystick_2_throw")
+		_:
+			print("BAD INPUT TYPE: ", self.input_type)
+			return false
+
 func get_throwing():
 	match input_type:
 		InputType.Mouse:
-			return Input.is_action_just_pressed("keyboard_throw")
+			return Input.is_action_just_released("keyboard_throw")
 		InputType.Controller1:
-			return Input.is_action_just_pressed("joystick_1_throw")
+			return Input.is_action_just_released("joystick_1_throw")
 		InputType.Controller2:
-			return Input.is_action_just_pressed("joystick_2_throw")
+			return Input.is_action_just_released("joystick_2_throw")
 		_:
 			print("BAD INPUT TYPE: ", self.input_type)
 			return false
@@ -73,10 +85,13 @@ func _physics_process(delta):
 	elif move_direction.length():
 		last_look_direction = move_direction
 
+	var aiming = get_aiming()
 	var throwing = get_throwing()
 
 	self.look_at(self.position + last_look_direction)
 	self.move_and_collide(move_direction.normalized() * 100 * delta)
+
+	update_aim_trail(aiming)
 
 	if throwing and state == State.Ready:
 		if has_disc:
@@ -86,6 +101,19 @@ func _physics_process(delta):
 			print("catching")
 			try_catch()
 
+func update_aim_trail(aiming: bool):
+	$aim_trail.visible = aiming
+	if aiming:
+		$aim_trail.points = Disc.get_trail(
+			last_look_direction,
+			position + last_look_direction.normalized() * 20,
+			200,
+		)
+		for i in range(0, $aim_trail.points.size()):
+			$aim_trail.points[i] -= self.position
+			$aim_trail.points[i] = $aim_trail.points[i].rotated(-self.rotation)
+
+	
 func try_throw():
 	DiscManager.new_disc(team, last_look_direction, position + last_look_direction.normalized() * 20)
 	state = State.Throwing

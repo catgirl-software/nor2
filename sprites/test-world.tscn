@@ -27,12 +27,18 @@ script = ExtResource("3_pekx0")
 
 [node name="p1" parent="." instance=ExtResource("4_e5pao")]
 position = Vector2(432, 61)
+input_type = 0
+team = 1
 
 [node name="p2" parent="." instance=ExtResource("4_e5pao")]
 position = Vector2(455, 147)
+input_type = 0
+team = 1
 
 [node name="p3" parent="." instance=ExtResource("4_e5pao")]
 position = Vector2(302, 21)
+input_type = 0
+team = 1
 
 [node name="CanvasLayer" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_85g1q")
