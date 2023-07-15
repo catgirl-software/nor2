@@ -1,6 +1,8 @@
 extends TextureRect
 
 var total_speed: float = 0
+var shader_min: float = 0.2
+var shader_cap: float = 1.8
 
 func _ready():
 	Events.ball_speed_changed.connect(ball_speed_changed)
@@ -13,5 +15,5 @@ func reset():
 
 func ball_speed_changed(delta):
 	total_speed += delta
-	self.material.set_shader_parameter("amount", total_speed / 700)
-	self.material.set_shader_parameter("amount", 1.50)
+	self.material.set_shader_parameter("amount", clamp(total_speed / 700, shader_min, shader_cap))
+	#self.material.set_shader_parameter("amount", 1.50)
