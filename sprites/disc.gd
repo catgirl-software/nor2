@@ -6,6 +6,9 @@ const STARTING_SPEED : int = 100
 const MAX_VEL : int = 400
 const MAX_VEL_SQUARED : int = MAX_VEL * MAX_VEL
 
+const LIGHT_BASE: float = 0
+const LIGHT_MAX: float = 3
+
 var vel: Vector2
 var team: int = 1
 
@@ -14,6 +17,8 @@ func init(player_team: int, direction: Vector2, initial_position: Vector2):
 	position = initial_position
 	team = player_team
 	$disc_sprite.frame = team
+	$glow.color = TeamSettings.team_colours[team-1]
+	update_glow()
 	Events.ball_speed_changed.emit(vel.length())
 
 static func get_trail(direction: Vector2, initial_position: Vector2, dist: float) -> PackedVector2Array:
@@ -51,6 +56,12 @@ func _physics_process(delta):
 			new_vel = new_vel.normalized() * min(MAX_VEL, new_vel.length())
 			Events.ball_speed_changed.emit((new_vel - vel).length())
 			self.vel = new_vel
+			update_glow()
 			movement = col.get_remainder().bounce(col.get_normal())
 		else:
 			break
+
+func update_glow():
+	var vel_scalar = vel.length()
+	var scale_point = (vel_scalar - STARTING_SPEED) / (MAX_VEL - STARTING_SPEED)
+	$glow.energy = (LIGHT_MAX - LIGHT_BASE) * scale_point + LIGHT_BASE

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://cuosft86nt2rr"]
+
+[ext_resource type="Script" path="res://autoloads/TeamSettings.gd" id="1_5fokw"]
+
+[node name="TeamSettings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5fokw")
+team_colours = Array[Color]([Color(0.603922, 0.921569, 0, 1), Color(0.921569, 0.827451, 0.12549, 1), Color(0.380392, 0.827451, 0.890196, 1), Color(0.952941, 0.380392, 1, 1)])
