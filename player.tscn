@@ -40,7 +40,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "method"
 tracks/2/imported = false
-tracks/2/enabled = true
+tracks/2/enabled = false
 tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
@@ -77,7 +77,7 @@ vframes = 5
 
 [node name="disc" type="Sprite2D" parent="Arm"]
 show_behind_parent = true
-position = Vector2(12.9997, 0.0418882)
+position = Vector2(10.9997, 0.0418959)
 texture = ExtResource("3_crkmk")
 vframes = 5
 
@@ -93,3 +93,9 @@ libraries = {
 [node name="aim_trail" type="Line2D" parent="."]
 visible = false
 width = 2.0
+
+[node name="ThrowArea" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThrowArea"]
+position = Vector2(2, 0)
+polygon = PackedVector2Array(10, 0, 22, 0, 19, -11, 7.08714, -13.5698, 3, -14, 7, -10, 10, -5)

@@ -91,7 +91,7 @@ func _physics_process(delta):
 	self.look_at(self.position + last_look_direction)
 	self.move_and_collide(move_direction.normalized() * 100 * delta)
 
-	update_aim_trail(aiming)
+	update_aim_trail(aiming and check_throw_validity())
 
 	if throwing and state == State.Ready:
 		if has_disc:
@@ -113,8 +113,19 @@ func update_aim_trail(aiming: bool):
 			$aim_trail.points[i] -= self.position
 			$aim_trail.points[i] = $aim_trail.points[i].rotated(-self.rotation)
 
+func check_throw_validity() -> bool:
+	print("Checking validity")
+	print("overlapping " + str($ThrowArea.get_overlapping_bodies()))
+	if $ThrowArea.has_overlapping_bodies():
+		print("Can't throw")
+		return false
+	else:
+		print("can throw")
+		return true
 	
 func try_throw():
+	if check_throw_validity() == false:
+		return
 	DiscManager.new_disc(team, last_look_direction, position + last_look_direction.normalized() * 20)
 	state = State.Throwing
 	has_disc = false
