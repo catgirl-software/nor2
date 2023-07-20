@@ -2,12 +2,13 @@ extends Node
 
 class Player:
 	var frame: int
-	var input: Enums.InputType
+	var input: I.InputType
 	var team: int
 	var kills: Array[int]
-	func _init(f: int, t: int):
+	func _init(f: int, t: int, i: I.InputType):
 		frame = f
 		team = t
+		input = i
 
 var players: Dictionary
 
@@ -18,19 +19,18 @@ var winner : int = 0
 
 signal game_over(winner: int)
 
-func initialise(p: Array[int], threshold: int = 10):
+func reset(threshold: int = 10):
 	scores.clear()
 	winner = 0
-	#scores_this_round.clear()
-	for frame in p:
-		players[frame] = Player.new(frame, frame) # todo
-
 	self.threshold = threshold
+	
+func add_player(input: I.InputType, frame: int):
+	players[frame] = Player.new(frame, frame, input) # todo
 
 func score(killer: int, victim: int):
 	players[killer].kills.append(victim)
 
-	if len(scores[killer]) >= threshold:
+	if len(players[killer].kills) >= threshold:
 		winner = killer
 
 func get_scores():

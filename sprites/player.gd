@@ -1,14 +1,13 @@
 extends CharacterBody2D
 
-static func create(input: Enums.InputType, team: int):
+static func create(input: I.InputType, team: int):
 	var me = preload("res://player.tscn").instantiate()
 	me.input_type = input
 	me.team = team
 	return me
 
-
-@export var input_type: Enums.InputType
-@export_range(1,4) var team: int = 1
+var input_type: I.InputType
+var team: int = 1
 
 var last_look_direction: Vector2 = Vector2(1, 1)
 
@@ -23,54 +22,6 @@ enum State {
 
 var state: State = State.Ready
 
-func get_aim_direction():
-	match input_type:
-		Enums.InputType.Mouse:
-			return (get_viewport().get_mouse_position() - self.get_global_transform_with_canvas().origin).normalized()
-		Enums.InputType.Controller1:
-			return Input.get_vector("joystick_aim_1_nx", "joystick_aim_1_px", "joystick_aim_1_ny", "joystick_aim_1_py")
-		Enums.InputType.Controller2:
-			return Input.get_vector("joystick_aim_2_nx", "joystick_aim_2_px", "joystick_aim_2_ny", "joystick_aim_2_py")
-		_:
-			print("BAD INPUT TYPE: ", self.input_type)
-			return Vector2(0, 0)
-
-func get_move_direction():
-	match input_type:
-		Enums.InputType.Mouse:
-			return Input.get_vector("keyboard_left", "keyboard_right", "keyboard_up", "keyboard_down")
-		Enums.InputType.Controller1:
-			return Input.get_vector("joystick_move_1_nx", "joystick_move_1_px", "joystick_move_1_ny", "joystick_move_1_py")
-		Enums.InputType.Controller2:
-			return Input.get_vector("joystick_move_2_nx", "joystick_move_2_px", "joystick_move_2_ny", "joystick_move_2_py")
-		_:
-			print("BAD INPUT TYPE: ", self.input_type)
-			return Vector2(0, 0)
-
-func get_aiming():
-	match input_type:
-		Enums.InputType.Mouse:
-			return Input.is_action_pressed("keyboard_throw")
-		Enums.InputType.Controller1:
-			return Input.is_action_pressed("joystick_1_throw")
-		Enums.InputType.Controller2:
-			return Input.is_action_pressed("joystick_2_throw")
-		_:
-			print("BAD INPUT TYPE: ", self.input_type)
-			return false
-
-func get_throwing():
-	match input_type:
-		Enums.InputType.Mouse:
-			return Input.is_action_just_released("keyboard_throw")
-		Enums.InputType.Controller1:
-			return Input.is_action_just_released("joystick_1_throw")
-		Enums.InputType.Controller2:
-			return Input.is_action_just_released("joystick_2_throw")
-		_:
-			print("BAD INPUT TYPE: ", self.input_type)
-			return false
-
 func _ready():
 	# oh boy i hope keys() is stable ordered
 	#team = ScoreTracker.get_teams()[team - 1]
@@ -79,15 +30,15 @@ func _ready():
 	$Arm/disc.frame = team
 
 func _physics_process(delta):
-	var aim_direction = get_aim_direction()
-	var move_direction = get_move_direction()
+	var aim_direction = I.get_aim_direction(input_type)
+	var move_direction = I.get_move_direction(input_type)
 	if aim_direction.length():
 		last_look_direction = aim_direction
 	elif move_direction.length():
 		last_look_direction = move_direction
 
-	var aiming = get_aiming()
-	var throwing = get_throwing()
+	var aiming = I.get_aiming(input_type)
+	var throwing = I.get_throwing(input_type)
 
 	self.look_at(self.position + last_look_direction)
 	self.move_and_collide(move_direction.normalized() * 100 * delta)

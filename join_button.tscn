@@ -1,0 +1,60 @@
+[gd_scene load_steps=3 format=3 uid="uid://carana4a1x0jn"]
+
+[ext_resource type="Script" path="res://join_button.gd" id="1_gljcf"]
+[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="3_dqeva"]
+
+[node name="join_button" type="Control" groups=["join_button"]]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_gljcf")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 80
+text = "+"
+
+[node name="Panel" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(200, 120)
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 120.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 2
+
+[node name="down" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<"
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+
+[node name="ColorRect" type="ColorRect" parent="Panel/HBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="disc" type="Sprite2D" parent="Panel/HBoxContainer/CenterContainer"]
+position = Vector2(52, 60)
+scale = Vector2(6, 6)
+texture = ExtResource("3_dqeva")
+vframes = 5
+frame = 1
+
+[node name="up" type="Button" parent="Panel/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 11
+text = ">"
+
+[connection signal="pressed" from="Panel/HBoxContainer/down" to="Panel" method="down" flags=18]
+[connection signal="pressed" from="Panel/HBoxContainer/up" to="Panel" method="up" flags=18]

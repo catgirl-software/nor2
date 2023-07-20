@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://oe1olw403qwt"]
+[gd_scene load_steps=4 format=3 uid="uid://oe1olw403qwt"]
 
 [ext_resource type="PackedScene" uid="uid://lde3owvbf8ep" path="res://scenes/component_scenes/title_playerbox.tscn" id="1_7tju6"]
+[ext_resource type="PackedScene" uid="uid://carana4a1x0jn" path="res://join_button.tscn" id="2_3biir"]
 
 [sub_resource type="GDScript" id="GDScript_d1hpf"]
 resource_name = "title_control"
@@ -10,6 +11,11 @@ script/source = "extends Control
 @export var player_select_scene : PackedScene
 
 @onready var button = $GridContainer/Button
+
+var players: int = 0
+
+# idx => bool
+var selected_colours: Dictionary = {}
 
 func start_game():
 	var players = $GridContainer.get_children()
@@ -22,17 +28,46 @@ func start_game():
 	ScoreTracker.initialise(teams, 5)
 	RoundHandler.start()
 
+func next_colour(colour: int, dir: int):
+	for i in range(4):
+		colour += dir
+		if colour < 0:
+			colour = 4
+		if colour > 4:
+			colour = 1
+		print(\"c is \" + str(colour))
+		if selected_colours.get(colour, false) == false:
+			return colour
+	return -1
 
-func _add_player_button_pressed():
-	if player_select_scene and $GridContainer.get_child_count() < 5:
-		var new_item = player_select_scene.instantiate()
-		new_item.starting_team = $GridContainer.get_child_count()
-		$GridContainer.add_child(new_item)
-		
-		$GridContainer.move_child(button, $GridContainer.get_child_count() - 1)
-		
-		if $GridContainer.get_child_count() == 5:
-			$GridContainer/Button.visible = false
+func try_lock_in(colour: int):
+	if selected_colours.get(colour, false) == true:
+		return false
+	selected_colours[colour] = true
+	return true
+
+func on_lock_in():
+	var locked_in = 0
+	for v in selected_colours.values():
+		if v:
+			locked_in += 1
+	if locked_in == players && locked_in >= 2:
+		print(\"starting!!\")
+		get_tree().call_group(\"join_button\", \"disable_input\")
+		await get_tree().create_timer(2.0).timeout
+		ScoreTracker.reset()
+		for button in get_tree().get_nodes_in_group(\"join_button\"):
+			if button.confirmed:
+				ScoreTracker.add_player(button.input, button.team)
+		RoundHandler.start()
+
+func lock_out(colour: int):
+	selected_colours[colour] = false
+
+func join():
+	players += 1
+func leave():
+	players -= 1
 "
 
 [node name="title" type="Control"]
@@ -71,24 +106,33 @@ anchor_right = 0.5
 offset_left = -270.0
 offset_top = 52.0
 offset_right = 270.0
-offset_bottom = 354.0
+offset_bottom = 510.0
 grow_horizontal = 2
 theme_override_constants/h_separation = 140
 theme_override_constants/v_separation = 50
 columns = 2
 
-[node name="p1" parent="GridContainer" instance=ExtResource("1_7tju6")]
+[node name="join_button" parent="GridContainer" instance=ExtResource("2_3biir")]
 layout_mode = 2
+root_node = NodePath("../..")
 starting_team = 1
 
-[node name="p2" parent="GridContainer" instance=ExtResource("1_7tju6")]
+[node name="join_button2" parent="GridContainer" instance=ExtResource("2_3biir")]
 layout_mode = 2
+input = 1
+root_node = NodePath("../..")
 starting_team = 2
 
-[node name="Button" type="Button" parent="GridContainer"]
+[node name="join_button3" parent="GridContainer" instance=ExtResource("2_3biir")]
 layout_mode = 2
-theme_override_font_sizes/font_size = 80
-text = "+"
+input = 2
+root_node = NodePath("../..")
+starting_team = 3
+
+[node name="join_button4" parent="GridContainer" instance=ExtResource("2_3biir")]
+layout_mode = 2
+input = 3
+root_node = NodePath("../..")
+starting_team = 4
 
 [connection signal="pressed" from="Button" to="." method="start_game"]
-[connection signal="pressed" from="GridContainer/Button" to="." method="_add_player_button_pressed"]
