@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://lde3owvbf8ep"]
+
+[ext_resource type="Script" path="res://scenes/component_scenes/title_playerbox.gd" id="1_6whbx"]
+[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="1_qbrp4"]
+
+[node name="Panel" type="PanelContainer"]
+custom_minimum_size = Vector2(200, 120)
+offset_right = 200.0
+offset_bottom = 120.0
+script = ExtResource("1_6whbx")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="down" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<"
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+
+[node name="disc" type="Sprite2D" parent="HBoxContainer/CenterContainer"]
+position = Vector2(52, 60)
+scale = Vector2(6, 6)
+texture = ExtResource("1_qbrp4")
+vframes = 5
+frame = 1
+
+[node name="up" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 11
+text = ">"
+
+[connection signal="pressed" from="HBoxContainer/down" to="." method="down"]
+[connection signal="pressed" from="HBoxContainer/up" to="." method="up"]
