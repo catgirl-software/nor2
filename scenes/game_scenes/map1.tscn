@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfnwt42vmm3lr"]
+[gd_scene load_steps=10 format=3 uid="uid://bfnwt42vmm3lr"]
 
 [ext_resource type="Shader" path="res://lum.gdshader" id="1_o6ocy"]
+[ext_resource type="Script" path="res://add_players.gd" id="1_s32tb"]
 [ext_resource type="TileSet" uid="uid://bj7wm5ul8muam" path="res://sprites/wall_tileset.tres" id="1_ytix1"]
 [ext_resource type="Script" path="res://sprites/Lum.gd" id="2_3o03e"]
 [ext_resource type="Script" path="res://sprites/ColourableTiles.gd" id="2_v8a56"]
-[ext_resource type="PackedScene" uid="uid://wfu0ftpdkm2u" path="res://player.tscn" id="3_l8p3q"]
+[ext_resource type="PackedScene" uid="uid://daqw8vh2snpsl" path="res://PlayerSpawn.tscn" id="6_324gh"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a4pnx"]
 shader = ExtResource("1_o6ocy")
@@ -17,6 +18,7 @@ offsets = PackedFloat32Array(0.996997, 1)
 gradient = SubResource("Gradient_2uk7l")
 
 [node name="map1" type="Node2D"]
+script = ExtResource("1_s32tb")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource("1_ytix1")
@@ -28,17 +30,15 @@ script = ExtResource("2_v8a56")
 position = Vector2(240, 135)
 zoom = Vector2(2, 2)
 
-[node name="p2" parent="." instance=ExtResource("3_l8p3q")]
-position = Vector2(414, 205)
-input_type = 2
-team = 2
-
-[node name="p1" parent="." instance=ExtResource("3_l8p3q")]
-position = Vector2(56, 60)
-
 [node name="TextureRect" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_a4pnx")
 offset_right = 505.0
 offset_bottom = 301.0
 texture = SubResource("GradientTexture1D_mljo5")
 script = ExtResource("2_3o03e")
+
+[node name="PlayerSpawn" parent="." instance=ExtResource("6_324gh")]
+position = Vector2(61, 58)
+
+[node name="PlayerSpawn2" parent="." instance=ExtResource("6_324gh")]
+position = Vector2(315, 211)

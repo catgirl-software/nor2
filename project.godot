@@ -23,6 +23,7 @@ Events="*res://sprites/Events.gd"
 ScoreTracker="*res://autoloads/score_tracker.gd"
 RoundHandler="*res://autoloads/round_handler.gd"
 TeamSettings="*res://autoloads/TeamSettings.tscn"
+Enums="*res://autoloads/enum.gd"
 
 [display]
 
