@@ -28,7 +28,7 @@ static func get_trail(direction: Vector2, initial_position: Vector2, dist: float
 	disc.position = initial_position
 
 	var movement = direction.normalized() * dist
-	while true:
+	for i in range(2):
 		var col = disc.move_and_collide(movement)
 		if col:
 			res.append(col.get_position())

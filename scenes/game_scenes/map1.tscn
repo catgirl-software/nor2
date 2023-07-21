@@ -42,3 +42,9 @@ position = Vector2(61, 58)
 
 [node name="PlayerSpawn2" parent="." instance=ExtResource("6_324gh")]
 position = Vector2(315, 211)
+
+[node name="PlayerSpawn3" parent="." instance=ExtResource("6_324gh")]
+position = Vector2(132, 211)
+
+[node name="PlayerSpawn4" parent="." instance=ExtResource("6_324gh")]
+position = Vector2(324, 53)

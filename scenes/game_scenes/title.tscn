@@ -31,7 +31,7 @@ func start_game():
 func next_colour(colour: int, dir: int):
 	for i in range(4):
 		colour += dir
-		if colour < 0:
+		if colour < 1:
 			colour = 4
 		if colour > 4:
 			colour = 1

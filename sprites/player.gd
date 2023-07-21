@@ -23,11 +23,15 @@ enum State {
 var state: State = State.Ready
 
 func _ready():
-	# oh boy i hope keys() is stable ordered
-	#team = ScoreTracker.get_teams()[team - 1]
 	$Sprite2D.frame = team
 	$Arm.frame = team
 	$Arm/disc.frame = team
+	$aim_trail.default_color = TeamSettings.team_colours[team-1].lightened(0.7)
+	ScoreTracker.GiveDisc.connect(maybe_give_disc)
+
+func maybe_give_disc(t):
+	if t == team:
+		has_disc = true
 
 func _physics_process(delta):
 	var aim_direction = I.get_aim_direction(input_type)
@@ -43,7 +47,7 @@ func _physics_process(delta):
 	self.look_at(self.position + last_look_direction)
 	self.move_and_collide(move_direction.normalized() * 100 * delta)
 
-	update_aim_trail(aiming and check_throw_validity())
+	update_aim_trail(aiming and has_disc && check_throw_validity())
 
 	if throwing and state == State.Ready:
 		if has_disc:
@@ -104,13 +108,14 @@ func die(killing_team: int):
 	print("dead")
 	if killing_team != team:
 		ScoreTracker.score(killing_team, team)
-	RoundHandler.go_to_intermission()
+	ScoreTracker.on_kill()
 	queue_free()
-	
+
 func on_ball_collide(disc: Disc, _col: KinematicCollision2D) -> bool:
 	if state == State.Catching:
 		state = State.Ready
 		has_disc = true
 		return true
 	die(disc.team)
-	return false
+	ScoreTracker.GiveDisc.emit(disc.team)
+	return true

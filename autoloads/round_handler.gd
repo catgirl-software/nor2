@@ -21,4 +21,5 @@ func go_to_intermission():
 	get_tree().change_scene_to_packed(intermission)
 
 func go_to_level():
+	ScoreTracker.next_round()
 	get_tree().change_scene_to_packed(level)

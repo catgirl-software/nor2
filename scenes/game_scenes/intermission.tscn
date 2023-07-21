@@ -18,6 +18,13 @@ func _ready():
 		$AnimationPlayer.queue_free()
 		$RichTextLabel.text = colour_from_num[ScoreTracker.winner] + \" wins!\"
 		$Restart.visible = true
+
+func _process(delta):
+	if ScoreTracker.winner > 0:
+		for input in I.InputType.values():
+			if I.get_throwing(input):
+				_on_restart_pressed()
+
 func add_round_number():
 	$RichTextLabel.text += \" \" + str(RoundHandler.get_round_number())
 	
