@@ -1,0 +1,67 @@
+[gd_scene load_steps=4 format=3 uid="uid://cadg4tptuun5t"]
+
+[ext_resource type="Texture2D" uid="uid://3ue7iltvj20h" path="res://sprites/ase/norts.png" id="1_0k34o"]
+
+[sub_resource type="GDScript" id="GDScript_kvnns"]
+script/source = "extends Node2D
+
+func _process(delta):
+	for input in I.InputType.values():
+		if I.get_throwing(input):
+			get_tree().change_scene_to_file(\"res://scenes/game_scenes/title.tscn\")
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_be526"]
+font_size = 52
+
+[node name="splash" type="Node2D"]
+script = SubResource("GDScript_kvnns")
+
+[node name="Norts" type="Sprite2D" parent="."]
+position = Vector2(143, 104)
+rotation = 0.785398
+scale = Vector2(6.96875, 6.96875)
+texture = ExtResource("1_0k34o")
+vframes = 5
+frame = 1
+
+[node name="Norts2" type="Sprite2D" parent="."]
+position = Vector2(140, 421)
+rotation = -0.785398
+scale = Vector2(6.96875, 6.96875)
+texture = ExtResource("1_0k34o")
+vframes = 5
+frame = 4
+
+[node name="Norts3" type="Sprite2D" parent="."]
+position = Vector2(828, 435)
+rotation = 3.75246
+scale = Vector2(6.96875, 6.96875)
+texture = ExtResource("1_0k34o")
+vframes = 5
+frame = 3
+
+[node name="Norts4" type="Sprite2D" parent="."]
+position = Vector2(833, 106)
+rotation = 2.35619
+scale = Vector2(6.96875, 6.96875)
+texture = ExtResource("1_0k34o")
+vframes = 5
+frame = 2
+
+[node name="Label" type="Label" parent="."]
+offset_left = 289.0
+offset_top = 232.0
+offset_right = 719.0
+offset_bottom = 338.0
+text = "ENTER THE NORT"
+label_settings = SubResource("LabelSettings_be526")
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 426.0
+offset_top = 214.0
+offset_right = 915.0
+offset_bottom = 314.0
+scale = Vector2(0.335, 0.335)
+text = "Press any button to"
+label_settings = SubResource("LabelSettings_be526")

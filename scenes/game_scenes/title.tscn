@@ -104,7 +104,7 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -270.0
-offset_top = 52.0
+offset_top = 113.0
 offset_right = 270.0
 offset_bottom = 510.0
 grow_horizontal = 2
@@ -134,5 +134,25 @@ layout_mode = 2
 input = 3
 root_node = NodePath("../..")
 starting_team = 4
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 23.0
+offset_right = 618.0
+offset_bottom = 50.0
+scale = Vector2(1.5, 1.5)
+text = "LEFT STICK TO MOVE, RIGHT TO AIM, A TO THROW/CATCH"
+fit_content = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+layout_mode = 2
+offset_left = 397.0
+offset_top = 78.0
+offset_right = 597.0
+offset_bottom = 147.0
+scale = Vector2(1.5, 1.5)
+text = "DON'T GET HIT"
+fit_content = true
 
 [connection signal="pressed" from="Button" to="." method="start_game"]

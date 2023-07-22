@@ -12,7 +12,7 @@ var team: int = 1
 var last_look_direction: Vector2 = Vector2(1, 1)
 
 var has_disc: bool = true
-const BACKSWING_LENGTH: float = 1
+const BACKSWING_LENGTH: float = 2.5
 enum State {
 	Ready,
 	Throwing,
@@ -48,12 +48,11 @@ func _physics_process(delta):
 	self.move_and_collide(move_direction.normalized() * 100 * delta)
 
 	update_aim_trail(aiming and has_disc && check_throw_validity())
-
-	if throwing and state == State.Ready:
-		if has_disc:
+	if state == State.Ready:
+		if has_disc and throwing:
 			print("throwing")
 			try_throw()
-		else:
+		elif !has_disc and aiming:
 			print("catching")
 			try_catch()
 
@@ -112,10 +111,13 @@ func die(killing_team: int):
 	queue_free()
 
 func on_ball_collide(disc: Disc, _col: KinematicCollision2D) -> bool:
+
 	if state == State.Catching:
 		state = State.Ready
 		has_disc = true
 		return true
+	if disc.team == team:
+		return false
 	die(disc.team)
 	ScoreTracker.GiveDisc.emit(disc.team)
 	return true

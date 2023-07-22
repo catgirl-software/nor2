@@ -12,18 +12,24 @@ var colour_from_num : Dictionary = {
 	3 : \"Blue\",
 	4 : \"Purple\"
 }
+var r = false
 
 func _ready():
 	if ScoreTracker.winner > 0:
 		$AnimationPlayer.queue_free()
 		$RichTextLabel.text = colour_from_num[ScoreTracker.winner] + \" wins!\"
 		$Restart.visible = true
+	await get_tree().create_timer(5.0).timeout
+	r = true
+	await get_tree().create_timer(10).timeout
+	_on_restart_pressed()
 
 func _process(delta):
-	if ScoreTracker.winner > 0:
-		for input in I.InputType.values():
-			if I.get_throwing(input):
-				_on_restart_pressed()
+	if r:
+		if ScoreTracker.winner > 0:
+			for input in I.InputType.values():
+				if I.get_throwing(input):
+					_on_restart_pressed()
 
 func add_round_number():
 	$RichTextLabel.text += \" \" + str(RoundHandler.get_round_number())
@@ -33,7 +39,7 @@ func next_round():
 
 
 func _on_restart_pressed():
-	get_tree().change_scene_to_file(\"res://scenes/game_scenes/title.tscn\")
+	get_tree().change_scene_to_file(\"res://splash.tscn\")
 "
 
 [sub_resource type="Animation" id="Animation_kqas1"]

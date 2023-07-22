@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://wfu0ftpdkm2u"]
+[gd_scene load_steps=8 format=3 uid="uid://wfu0ftpdkm2u"]
 
 [ext_resource type="Script" path="res://sprites/player.gd" id="1_dkxln"]
 [ext_resource type="Texture2D" uid="uid://dyvxxxrki1rue" path="res://sprites/ase/arm.png" id="2_77rcf"]
@@ -6,14 +6,10 @@
 [ext_resource type="Texture2D" uid="uid://3ue7iltvj20h" path="res://sprites/ase/norts.png" id="4_gv58l"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ax235"]
-radius = 9.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ywinu"]
-radius = 4.0
+radius = 7.0
 
 [sub_resource type="Animation" id="Animation_ghvex"]
 resource_name = "throw"
-length = 0.4
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -21,7 +17,7 @@ tracks/0/path = NodePath("Arm:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.5708, -0.349066]
@@ -64,9 +60,6 @@ script = ExtResource("1_dkxln")
 
 [node name="head" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ax235")
-
-[node name="shoulders" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_ywinu")
 
 [node name="Arm" type="Sprite2D" parent="."]
 position = Vector2(0, -10)

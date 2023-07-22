@@ -42,7 +42,7 @@ static func get_trail(direction: Vector2, initial_position: Vector2, dist: float
 
 func _physics_process(delta):
 	var movement = self.vel
-	while true:
+	for i in range(100):
 		var col = self.move_and_collide(movement * delta)
 		if col:
 			var collider = col.get_collider()
@@ -59,7 +59,10 @@ func _physics_process(delta):
 			update_glow()
 			movement = col.get_remainder().bounce(col.get_normal())
 		else:
-			break
+			return
+	# 100 bounces, kill
+	queue_free()
+	ScoreTracker.GiveDisc.emit(team)
 
 func update_glow():
 	var vel_scalar = vel.length()

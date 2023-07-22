@@ -22,6 +22,7 @@ var winner : int = 0
 signal game_over(winner: int)
 
 func reset(threshold: int = 5):
+	players = {}
 	scores.clear()
 	kills_this_round = 0
 	winner = 0
