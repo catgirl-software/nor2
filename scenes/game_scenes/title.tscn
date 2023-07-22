@@ -26,7 +26,7 @@ func start_game():
 		if player is PanelContainer:
 			teams.append(player.team)
 	ScoreTracker.initialise(teams, 5)
-	RoundHandler.start()
+	get_tree().change_scene_to_file(\"res://scenes/game_scenes/tutorial_screen.tscn\")
 
 func next_colour(colour: int, dir: int):
 	for i in range(4):
