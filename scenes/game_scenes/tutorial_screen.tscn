@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj0ycxytwnebs"]
+[gd_scene load_steps=4 format=3 uid="uid://cprhlqyl7mvgy"]
 
+[ext_resource type="Script" path="res://scenes/game_scenes/tutorial_screen.gd" id="1_bhscm"]
 [ext_resource type="Texture2D" uid="uid://ijuon5n2hgab" path="res://sprites/ase/controller.png" id="1_v34o5"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r7ikf"]
@@ -12,6 +13,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_bhscm")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
