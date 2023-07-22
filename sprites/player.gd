@@ -6,9 +6,9 @@ static func create(input: I.InputType, team: int):
 	me.team = team
 	return me
 
-var input_type: I.InputType
+var input_type: I.InputType = I.InputType.Controller1
 var team: int = 1
-
+var ate_disc: bool = false
 var last_look_direction: Vector2 = Vector2(1, 1)
 
 var has_disc: bool = true
@@ -16,9 +16,12 @@ const BACKSWING_LENGTH: float = 2.5
 enum State {
 	Ready,
 	Throwing,
-	Catching,
-	CatchingBackswing,
+	DashCharging,
+	Dashing,
+	DashBackswing,
 }
+var dash_direction: Vector2 = Vector2(0, 0)
+var dash_frames: float = 0
 
 var state: State = State.Ready
 
@@ -27,6 +30,8 @@ func _ready():
 	$Arm.frame = team
 	$Arm/disc.frame = team
 	$aim_trail.default_color = TeamSettings.team_colours[team-1].lightened(0.7)
+	$"arrowhead/part 1".default_color = TeamSettings.team_colours[team-1].darkened(0.5)
+	$"arrowhead/part 2".default_color = TeamSettings.team_colours[team-1].darkened(0.5)
 	ScoreTracker.GiveDisc.connect(maybe_give_disc)
 
 func maybe_give_disc(t):
@@ -43,19 +48,71 @@ func _physics_process(delta):
 
 	var aiming = I.get_aiming(input_type)
 	var throwing = I.get_throwing(input_type)
+	var dash_held = I.get_dash_held(input_type)
 
 	self.look_at(self.position + last_look_direction)
-	self.move_and_collide(move_direction.normalized() * 100 * delta)
+
+	if state == State.Ready or state == State.Throwing:
+		self.move_and_collide(move_direction.normalized() * 100 * delta)
+	if state == State.DashCharging:
+		pass # no movement
+	if state == State.Dashing:
+		var s = dash_direction.normalized() * 400 * delta
+		for i in range(10):
+			var col = self.move_and_collide(s)
+			if !col:
+				break
+			s = col.get_remainder().slide(col.get_normal())
+
+	if state == State.DashBackswing:
+		self.move_and_collide(move_direction.normalized() * 20 * delta) # slow
+
 
 	update_aim_trail(aiming and has_disc && check_throw_validity())
 	if state == State.Ready:
 		if has_disc and throwing:
 			print("throwing")
 			try_throw()
-		elif !has_disc and aiming:
-			print("catching")
-			try_catch()
 
+	if state == State.Ready and dash_held:
+		state = State.DashCharging
+	if state == State.DashCharging:
+		dash_frames += 0.2
+		if dash_frames > 8:
+			dash_frames = 8
+		if !dash_held:
+			# dash
+			state = State.Dashing
+			dash_direction = last_look_direction
+	if state == State.Dashing:
+		dash_frames -= 1
+		if dash_frames <= 0:
+			if ate_disc:
+				ate_disc = false
+				state = State.Ready
+			else:
+				state = State.DashBackswing
+				await get_tree().create_timer(2.0).timeout
+				state = State.Ready
+
+	update_dash_trail()
+func update_dash_trail():
+	if state != State.DashCharging:
+		$dash_trail.visible = false
+		$arrowhead.visible = false
+		return
+	var end_point := Vector2(1, 0) * 400 * dash_frames/60
+	$dash_trail.points = [
+		Vector2(0, 0),
+		end_point
+	]
+	if dash_frames == 8:
+		$dash_trail.default_color = TeamSettings.team_colours[team-1].darkened(0.7)
+	else:
+		$dash_trail.default_color = Color.WHITE
+	$dash_trail.visible = true
+	$arrowhead.position = end_point
+	$arrowhead.visible = true
 func update_aim_trail(aiming: bool):
 	$aim_trail.visible = aiming
 	if aiming:
@@ -92,17 +149,6 @@ func try_throw():
 	print("stopped")
 	state = State.Ready
 
-func try_catch():
-	state = State.Catching
-	$AnimationPlayer.play("throw")
-	print("catching, ", $Arm/disc.visible)
-	await $AnimationPlayer.animation_finished
-	$AnimationPlayer.stop()
-	if state == State.Catching:
-		state = State.CatchingBackswing
-		await get_tree().create_timer(BACKSWING_LENGTH).timeout
-		state = State.Ready
-
 func die(killing_team: int):
 	print("dead")
 	if killing_team != team:
@@ -110,6 +156,7 @@ func die(killing_team: int):
 	ScoreTracker.on_kill()
 	queue_free()
 
+<<<<<<< HEAD
 func on_ball_collide(disc: Disc, _col: KinematicCollision2D) -> bool:
 
 	if state == State.Catching:
@@ -118,6 +165,17 @@ func on_ball_collide(disc: Disc, _col: KinematicCollision2D) -> bool:
 		return true
 	if disc.team == team:
 		return false
+=======
+func on_ball_collide(disc: Disc, _col: KinematicCollision2D):
+	if state == State.Dashing:
+		if has_disc:
+			return dash_direction
+			return false #bounce
+		else:
+			ate_disc = true
+			has_disc = true
+			return true
+>>>>>>> 4ab65f7 (dashing)
 	die(disc.team)
 	ScoreTracker.GiveDisc.emit(disc.team)
 	return true

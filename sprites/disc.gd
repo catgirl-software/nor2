@@ -48,16 +48,23 @@ func _physics_process(delta):
 			var collider = col.get_collider()
 			if collider.has_method("on_ball_collide"):
 				var destroy = collider.on_ball_collide(self, col)
-				if destroy:
+				if destroy is Vector2:
+					var new_vel = destroy.normalized() * 400
+					Events.ball_speed_changed.emit((new_vel - vel).length())
+					self.vel = new_vel
+					update_glow()
+					movement = new_vel * delta
+				elif destroy:
 					self.queue_free()
 					Events.ball_speed_changed.emit(-vel.length())
 					return
-			var new_vel = self.vel.bounce(col.get_normal()) * ACCELERATION
-			new_vel = new_vel.normalized() * min(MAX_VEL, new_vel.length())
-			Events.ball_speed_changed.emit((new_vel - vel).length())
-			self.vel = new_vel
-			update_glow()
-			movement = col.get_remainder().bounce(col.get_normal())
+				else:
+					var new_vel = self.vel.bounce(col.get_normal()) * ACCELERATION
+					new_vel = new_vel.normalized() * min(MAX_VEL, new_vel.length())
+					Events.ball_speed_changed.emit((new_vel - vel).length())
+					self.vel = new_vel
+					update_glow()
+					movement = col.get_remainder().bounce(col.get_normal())
 		else:
 			return
 	# 100 bounces, kill

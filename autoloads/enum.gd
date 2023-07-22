@@ -79,3 +79,5 @@ func get_leave(input_type: InputType):
 		_:
 			print("BAD INPUT TYPE: ", self.input_type)
 			return false
+func get_dash_held(input_type: InputType):
+	return get_leave(input_type)

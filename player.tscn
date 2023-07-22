@@ -88,8 +88,23 @@ visible = false
 width = 2.0
 default_color = Color(0.478431, 0.478431, 0.478431, 0.607843)
 
+[node name="dash_trail" type="Line2D" parent="."]
+visible = false
+width = 2.0
+
 [node name="ThrowArea" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ThrowArea"]
 position = Vector2(2, 0)
 polygon = PackedVector2Array(10, 0, 22, 0, 19, -11, 7.08714, -13.5698, 3, -14, 7, -10, 10, -5)
+
+[node name="arrowhead" type="Node2D" parent="."]
+visible = false
+
+[node name="part 1" type="Line2D" parent="arrowhead"]
+points = PackedVector2Array(-15, -15, -7, -7)
+width = 3.0
+
+[node name="part 2" type="Line2D" parent="arrowhead"]
+points = PackedVector2Array(-15, 15, -7, 7)
+width = 3.0
