@@ -1,17 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://copkkwj4cdcu3"]
+[gd_scene load_steps=7 format=3 uid="uid://copkkwj4cdcu3"]
 
-[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="1_anapg"]
+[ext_resource type="Texture2D" uid="uid://fbej25kqjec8" path="res://sprites/ase/discs_ind1.png" id="1_ecw3t"]
+[ext_resource type="Texture2D" uid="uid://bp31j3t0qt573" path="res://sprites/ase/discs_ind2.png" id="2_buphu"]
+[ext_resource type="Texture2D" uid="uid://blxx1dmabgcjp" path="res://sprites/ase/discs_ind3.png" id="3_68ed4"]
+[ext_resource type="Texture2D" uid="uid://b1kvybhsyctce" path="res://sprites/ase/discs_ind4.png" id="4_tbk0i"]
+[ext_resource type="Texture2D" uid="uid://s2a0t2y0ej3r" path="res://sprites/ase/discs_ind5.png" id="5_wslxo"]
 
 [sub_resource type="GDScript" id="GDScript_4gvak"]
 resource_name = "ScoreDisc"
-script/source = "extends Control
+script/source = "extends TextureRect
+
+@export var frames : Array[Texture2D]
 
 func init(set_frame : int):
-	$Sprite2D.frame = set_frame
+	texture = frames[set_frame]
 "
 
-[node name="ScoreDisc" type="Control"]
-layout_mode = 3
+[node name="ScoreDisc" type="TextureRect"]
+anchors_preset = -1
 anchor_right = 0.067
 anchor_bottom = 0.119
 offset_right = -0.32
@@ -19,9 +25,4 @@ offset_bottom = -0.260002
 grow_horizontal = 2
 grow_vertical = 2
 script = SubResource("GDScript_4gvak")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(32, 32)
-scale = Vector2(4, 4)
-texture = ExtResource("1_anapg")
-vframes = 5
+frames = Array[Texture2D]([ExtResource("1_ecw3t"), ExtResource("2_buphu"), ExtResource("3_68ed4"), ExtResource("4_tbk0i"), ExtResource("5_wslxo")])

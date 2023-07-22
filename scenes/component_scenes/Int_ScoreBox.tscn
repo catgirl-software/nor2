@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" path="res://scenes/component_scenes/Int_ScoreBox.gd" id="1_4uw5f"]
 [ext_resource type="Theme" uid="uid://dqsdcby6snaey" path="res://PanelTheme.tres" id="1_hdpoa"]
-[ext_resource type="Texture2D" uid="uid://dd1rasmpuckf6" path="res://sprites/ase/discs_notrail.png" id="1_orw7a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1fl5t"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="PanelContainer" type="PanelContainer"]
 custom_minimum_size = Vector2(0, 80)
@@ -14,7 +16,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_hdpoa")
 script = ExtResource("1_4uw5f")
-scoring_sprite = ExtResource("1_orw7a")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -39,6 +40,10 @@ bbcode_enabled = true
 text = "temp"
 fit_content = true
 
-[node name="ScoreContainer" type="HBoxContainer" parent="HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1fl5t")
+
+[node name="ScoreContainer" type="HBoxContainer" parent="HBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
