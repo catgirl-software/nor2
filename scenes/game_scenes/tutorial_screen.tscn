@@ -1,0 +1,66 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj0ycxytwnebs"]
+
+[ext_resource type="Texture2D" uid="uid://ijuon5n2hgab" path="res://sprites/ase/controller.png" id="1_v34o5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r7ikf"]
+font_size = 20
+
+[node name="tutorial_screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0745098, 0.0745098, 0.0745098, 1)
+
+[node name="Controller" type="Sprite2D" parent="."]
+position = Vector2(459, 205)
+scale = Vector2(1.70312, 1.70312)
+texture = ExtResource("1_v34o5")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 151.0
+offset_top = 157.0
+offset_right = 302.0
+offset_bottom = 219.0
+text = "MOVE AROUND"
+label_settings = SubResource("LabelSettings_r7ikf")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 624.0
+offset_top = 224.0
+offset_right = 775.0
+offset_bottom = 286.0
+text = "FACE THIS WAY"
+label_settings = SubResource("LabelSettings_r7ikf")
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 573.0
+offset_top = 38.0
+offset_right = 752.0
+offset_bottom = 100.0
+text = "THROW A DISC
+(If you have a disc)"
+label_settings = SubResource("LabelSettings_r7ikf")
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 206.0
+offset_top = 31.0
+offset_right = 385.0
+offset_bottom = 93.0
+text = "HOLD to CHARGE DASH
+RELEASE to DASH"
+label_settings = SubResource("LabelSettings_r7ikf")
