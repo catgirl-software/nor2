@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj0ycxytwnebs"]
+[gd_scene load_steps=4 format=3 uid="uid://cj0ycxytwnebs"]
 
 [ext_resource type="Texture2D" uid="uid://ijuon5n2hgab" path="res://sprites/ase/controller.png" id="1_v34o5"]
+[ext_resource type="Script" path="res://scripts/TeamMarker.gd" id="2_p4php"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r7ikf"]
 font_size = 20
@@ -36,6 +37,10 @@ offset_bottom = 219.0
 text = "MOVE AROUND"
 label_settings = SubResource("LabelSettings_r7ikf")
 
+[node name="TeamMarker" type="Node" parent="Label"]
+script = ExtResource("2_p4php")
+team = 3
+
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
 offset_left = 624.0
@@ -44,6 +49,10 @@ offset_right = 775.0
 offset_bottom = 286.0
 text = "FACE THIS WAY"
 label_settings = SubResource("LabelSettings_r7ikf")
+
+[node name="TeamMarker" type="Node" parent="Label2"]
+script = ExtResource("2_p4php")
+team = 4
 
 [node name="Label3" type="Label" parent="."]
 layout_mode = 0
@@ -55,6 +64,10 @@ text = "THROW A DISC
 (If you have a disc)"
 label_settings = SubResource("LabelSettings_r7ikf")
 
+[node name="TeamMarker" type="Node" parent="Label3"]
+script = ExtResource("2_p4php")
+team = 1
+
 [node name="Label4" type="Label" parent="."]
 layout_mode = 0
 offset_left = 206.0
@@ -64,3 +77,7 @@ offset_bottom = 93.0
 text = "HOLD to CHARGE DASH
 RELEASE to DASH"
 label_settings = SubResource("LabelSettings_r7ikf")
+
+[node name="TeamMarker" type="Node" parent="Label4"]
+script = ExtResource("2_p4php")
+team = 2
