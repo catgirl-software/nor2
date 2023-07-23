@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cj0ycxytwnebs"]
+[gd_scene load_steps=5 format=3 uid="uid://cprhlqyl7mvgy"]
 
 [ext_resource type="Script" path="res://scenes/game_scenes/tutorial_screen.gd" id="1_bhscm"]
 [ext_resource type="Texture2D" uid="uid://ijuon5n2hgab" path="res://sprites/ase/controller.png" id="1_v34o5"]
@@ -26,12 +26,17 @@ grow_vertical = 2
 color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 
 [node name="Label" type="Label" parent="ColorRect"]
+layout_mode = 0
 offset_left = 151.0
 offset_top = 157.0
 offset_right = 302.0
 offset_bottom = 219.0
 text = "MOVE AROUND"
 label_settings = SubResource("LabelSettings_r7ikf")
+
+[node name="TeamMarker" type="Node" parent="ColorRect/Label"]
+script = ExtResource("2_p4php")
+team = 3
 
 [node name="Controller" type="Sprite2D" parent="."]
 position = Vector2(459, 205)
@@ -40,16 +45,25 @@ texture = ExtResource("1_v34o5")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 325.0
-offset_top = 413.0
-offset_right = 476.0
-offset_bottom = 475.0
+offset_left = 341.0
+offset_top = 445.0
+offset_right = 577.0
+offset_bottom = 507.0
 text = "PRESS THROW TO BEGIN"
 label_settings = SubResource("LabelSettings_r7ikf")
 
-[node name="TeamMarker" type="Node" parent="Label"]
+[node name="Label5" type="Label" parent="."]
+layout_mode = 0
+offset_left = 299.0
+offset_top = 344.0
+offset_right = 632.0
+offset_bottom = 406.0
+text = "DASH INTO DISCS TO CATCH THEM"
+label_settings = SubResource("LabelSettings_r7ikf")
+
+[node name="TeamMarker" type="Node" parent="Label5"]
 script = ExtResource("2_p4php")
-team = 3
+team = 2
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 0
@@ -80,13 +94,14 @@ team = 1
 
 [node name="Label4" type="Label" parent="."]
 layout_mode = 0
-offset_left = 206.0
-offset_top = 31.0
-offset_right = 385.0
-offset_bottom = 93.0
+offset_left = 125.0
+offset_top = 39.0
+offset_right = 351.0
+offset_bottom = 101.0
 text = "HOLD to CHARGE DASH
 RELEASE to DASH"
 label_settings = SubResource("LabelSettings_r7ikf")
+horizontal_alignment = 2
 
 [node name="TeamMarker" type="Node" parent="Label4"]
 script = ExtResource("2_p4php")

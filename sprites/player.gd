@@ -76,6 +76,9 @@ func _physics_process(delta):
 
 	if state == State.Ready and dash_held:
 		state = State.DashCharging
+		state = State.Dashing
+		dash_direction = last_look_direction
+		dash_frames = 8
 	if state == State.DashCharging:
 		dash_frames += 0.2
 		if dash_frames > 8:
@@ -92,7 +95,7 @@ func _physics_process(delta):
 				state = State.Ready
 			else:
 				state = State.DashBackswing
-				await get_tree().create_timer(2.0).timeout
+				await get_tree().create_timer(1.0).timeout
 				state = State.Ready
 
 	update_dash_trail()
