@@ -156,26 +156,19 @@ func die(killing_team: int):
 	ScoreTracker.on_kill()
 	queue_free()
 
-<<<<<<< HEAD
-func on_ball_collide(disc: Disc, _col: KinematicCollision2D) -> bool:
 
-	if state == State.Catching:
-		state = State.Ready
-		has_disc = true
-		return true
-	if disc.team == team:
-		return false
-=======
 func on_ball_collide(disc: Disc, _col: KinematicCollision2D):
 	if state == State.Dashing:
 		if has_disc:
+			disc.team = team
 			return dash_direction
 			return false #bounce
 		else:
 			ate_disc = true
 			has_disc = true
 			return true
->>>>>>> 4ab65f7 (dashing)
+	if disc.team == team:
+		return false
 	die(disc.team)
 	ScoreTracker.GiveDisc.emit(disc.team)
 	return true

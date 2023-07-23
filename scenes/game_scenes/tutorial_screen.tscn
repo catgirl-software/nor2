@@ -24,6 +24,14 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0745098, 0.0745098, 0.0745098, 1)
 
+[node name="Label" type="Label" parent="ColorRect"]
+offset_left = 151.0
+offset_top = 157.0
+offset_right = 302.0
+offset_bottom = 219.0
+text = "MOVE AROUND"
+label_settings = SubResource("LabelSettings_r7ikf")
+
 [node name="Controller" type="Sprite2D" parent="."]
 position = Vector2(459, 205)
 scale = Vector2(1.70312, 1.70312)
@@ -31,11 +39,11 @@ texture = ExtResource("1_v34o5")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 151.0
-offset_top = 157.0
-offset_right = 302.0
-offset_bottom = 219.0
-text = "MOVE AROUND"
+offset_left = 325.0
+offset_top = 413.0
+offset_right = 476.0
+offset_bottom = 475.0
+text = "PRESS THROW TO BEGIN"
 label_settings = SubResource("LabelSettings_r7ikf")
 
 [node name="Label2" type="Label" parent="."]

@@ -51,7 +51,7 @@ func on_lock_in():
 	for v in selected_colours.values():
 		if v:
 			locked_in += 1
-	if locked_in == players:# && locked_in >= 2:
+	if locked_in == players && locked_in >= 2:
 		print(\"starting!!\")
 		get_tree().call_group(\"join_button\", \"disable_input\")
 		await get_tree().create_timer(2.0).timeout
